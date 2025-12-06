@@ -321,13 +321,13 @@ function calculateSubnetting() {
         steps.push({
             title: "Paso 2: Bits de Subred y Nueva Máscara",
             content: `Se necesitan ${requiredSubnets} subredes. Se busca 'n' tal que $2^n \\ge ${requiredSubnets}$.`,
-            math: `\\{Bits de Subred (n)} = ${bitsNeeded} 2^{${bitsNeeded}} = ${totalSubnets})`,
+            math: `Bits de Subred 'n' = ${bitsNeeded} porque: 2^${bitsNeeded} = ${totalSubnets}`,
             details: `Nuevo CIDR: $/${newCidr}$. Máscara: ${newMask}.`
         });
         steps.push({
             title: "Paso 3: Hosts por Subred y Salto de Bloque",
             content: `Se calcula el total de direcciones con ${hostBits} bits de host.`,
-            math: `\\{Total Direcciones} = 2^{${hostBits}} = ${totalHostsPerSubnet} \\\\tex{Hosts Usables} = ${usableHostsPerSubnet}`,
+            math: `Total Direcciones = 2^${hostBits} = ${totalHostsPerSubnet} Hosts Usables = ${usableHostsPerSubnet}`,
             details: `Tamaño del salto (Bloque): ${totalHostsPerSubnet} direcciones.`
         });
 
@@ -727,6 +727,26 @@ function removeHostInput(group) {
 // ====================================================================
 // INICIALIZACIÓN DE LA APLICACIÓN Y ASIGNACIÓN DE EVENTOS (SOLUCIÓN FINAL)
 // ====================================================================
+/* === FRAGMENTO JS A AÑADIR (Antes de la sección INICIALIZACIÓN DE LA APLICACIÓN) === */
+
+/**
+ * Prepara el contenido de la cabecera de impresión (Nombre y Fecha) 
+ * antes de que se inicie la impresión.
+ */
+function setupPrintHeader() {
+    const creatorName = document.getElementById('report-creator-name').value;
+    const date = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+    
+    // Asigna los valores a los placeholders del encabezado de impresión
+    document.getElementById('printed-report-creator-name').textContent = creatorName || 'N/A';
+    document.getElementById('printed-date').textContent = date;
+}
+
+// Escuchar el evento de impresión para configurar la cabecera
+window.addEventListener('beforeprint', setupPrintHeader);
+
+/* === FIN FRAGMENTO JS A AÑADIR === */
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Cargar el estado guardado desde localStorage
     loadInputState();
