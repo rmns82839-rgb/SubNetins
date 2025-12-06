@@ -25,23 +25,36 @@
 
     <div class="container">
         
-        <header class="app-header">
-            <div class="app-header-content">
-                <h1>Calculadora de Subnetting IP</h1>
-                
-                <a href="https://rmns82839-rgb.github.io/Binarios-y-decimales-/"
-                    class="link-btn external-link-btn"
-                    title="Visitar Herramienta de Binarios y Decimales">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-link">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                        <polyline points="15 3 21 3 21 9"></polyline>
-                        <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                    <span class="link-btn-title">Conversor Decimal-Binario</span>
-                </a>
-            </div>
-            <p class="subtitle">Análisis de Redes CLSM y VLSM</p>
-        </header>
+        
+            <header class="app-header">
+    <div class="app-header-content">
+        <h1>Calculadora de Subnetting IP</h1>
+        
+        <a href="https://rmns82839-rgb.github.io/Binarios-y-decimales-/"
+           class="link-btn external-link-btn"
+           title="Visitar Herramienta de Binarios y Decimales">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-link">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+p                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            <span class="link-btn-title">Herramienta Binaria</span> 
+            <span class="sr-only">Herramienta de Binarios</span>
+        </a>
+    </div>
+    <p class="subtitle">CLSM y VLSM con Persistencia Local</p>
+    
+    <div id="report-creator-name-group" class="input-group report-creator-name-group">
+        <label for="report-creator-name">Reporte Creado Por (Su Nombre):</label>
+        <input type="text" id="report-creator-name" placeholder="Ej: Juan Pérez - Curso X" onchange="saveInputState()">
+    </div>
+</header>
+<div class="print-header" style="display:none;">
+    <h1>Reporte de Subnetting IP</h1>
+    <p>Creado por: <span id="printed-report-creator-name">N/A</span></p>
+    <p>Fecha: <span id="printed-date">N/A</span></p>
+</div>
+        
 
         <main class="main-app-content">
             <section class="card input-section">
@@ -112,11 +125,11 @@
             </section>
 
             <section class="card step-by-step-section">
-                <h2 class="section-title">Proceso Detallado (Paso a Paso)</h2>
-                <div id="step-by-step-output" class="output-content">
-                    <p>El proceso detallado de la segmentación se mostrará aquí.</p>
-                </div>
-            </section>
+    <h2 class="section-title">Paso a Paso del Cálculo</h2>
+    <div id="step-by-step-output" class="output-content">
+        <p>El proceso detallado de la segmentación se mostrará aquí.</p>
+    </div>
+</section>
         </main>
 
         <aside class="utility-sidebar">
