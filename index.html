@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Subnetting IP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> 
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="app-header">
+            <div class="app-header-content">
+                <h1>Calculadora de Subnetting IP</h1>
+                
+                <a href="https://rmns82839-rgb.github.io/Binarios-y-decimales-/"
+                    class="link-btn external-link-btn"
+                    title="Visitar Herramienta de Binarios y Decimales">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-link">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    <span class="link-btn-title">Conversor Decimal-Binario</span>
+                </a>
+            </div>
+            <p class="subtitle">Análisis de Redes CLSM y VLSM</p>
+        </header>
+
+        <main class="main-app-content">
+            <section class="card input-section">
+                <h2 class="section-title">Parámetros de Red</h2>
+                <div class="form-container">
+                    
+                    <div class="input-group">
+                        <label for="ip-address">Dirección IP de la Red:</label>
+                        <input type="text" id="ip-address" placeholder="Ej: 192.168.1.0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="cidr">Prefijo CIDR Inicial (/):</label>
+                        <input type="number" id="cidr" min="1" max="30" placeholder="Ej: 24" value="24">
+                    </div>
+
+                    <div class="group-title">Tipo de Segmentación</div>
+                    <div class="radio-group">
+                        <input type="radio" id="clsm" name="calculation-type" value="clsm" checked>
+                        <label for="clsm" class="radio-label">CLSM (Subredes Fijas)</label>
+                        
+                        <input type="radio" id="vlsm" name="calculation-type" value="vlsm">
+                        <label for="vlsm" class="radio-label">VLSM (Subredes Variables)</label>
+                    </div>
+
+                    <div id="clsm-controls" class="clsm-controls">
+                         <div class="input-group">
+                            <label for="clsm-subnets">Subredes Requeridas:</label>
+                            <input type="number" id="clsm-subnets" min="2" placeholder="Ej: 4">
+                         </div>
+                    </div>
+
+                    <div id="vlsm-controls" class="vlsm-controls hidden">
+                        <div class="group-title">Hosts Requeridos (Ordenados Mayor a Menor)</div>
+                        <div id="host-requirements-list" class="host-requirements-list">
+                            </div>
+                        <button type="button" class="btn btn-secondary btn-small" id="add-host-btn">
+                            + Añadir Requisito
+                        </button>
+                        <p id="vlsm-error-message" class="error-message"></p>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-primary" id="calculate-btn">
+                        CALCULAR SUBREDES
+                    </button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">
+                        BORRAR DATOS
+                    </button>
+                </div>
+                
+                <div id="print-report-name-group" class="input-group print-report-name-group">
+                    <label for="report-name">Reporte Generado Por (Analista):</label>
+                    <input type="text" id="report-name" placeholder="Nombre Completo o Iniciales">
+                    
+                    <button type="button" class="btn btn-accent btn-full-width print-report-button" id="print-btn">
+                        IMPRIMIR REPORTE 🖨️
+                    </button>
+                </div>
+            </section>
+            
+            <section class="card results-section">
+                <h2 class="section-title">Resultados Finales</h2>
+                <div id="results-output" class="output-content">
+                    <p>Ingrese los datos y presione "CALCULAR SUBREDES" para ver los resultados.</p>
+                </div>
+            </section>
+
+            <section class="card step-by-step-section">
+                <h2 class="section-title">Proceso Detallado (Paso a Paso)</h2>
+                <div id="step-by-step-output" class="output-content">
+                    <p>El proceso detallado de la segmentación se mostrará aquí.</p>
+                </div>
+            </section>
+        </main>
+
+        <aside class="utility-sidebar">
+            <section class="card utility-card">
+                <h2 class="section-title">Calculadora $2^n$</h2>
+                <p class="sidebar-text">Calcula el total de direcciones o hosts para un número de bits dado.</p>
+                <div class="input-group">
+                    <label for="exponent-input">Valor de 'n' (Bits):</label>
+                    <input type="number" id="exponent-input" min="0" max="31" placeholder="Ej: 8" value="8">
+                </div>
+                <button type="button" class="btn btn-secondary btn-full-width" id="calc-exponent-btn">Calcular $2^n$</button>
+                <div id="exponent-output" class="output-content exponent-result">
+                    $$2^8 = 256$$
+                </div>
+            </section>
+            
+            <section class="card utility-card">
+                <h2 class="section-title">Estado de la App</h2>
+                <p id="auth-status" class="sidebar-text">Estado: Persistencia Local</p>
+                <p class="sidebar-text info-note">Los datos se guardan en el navegador automáticamente.</p>
+            </section>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
