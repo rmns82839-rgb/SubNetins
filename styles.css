@@ -26,7 +26,7 @@
     --shadow-neon-light: 0 0 8px rgba(0, 234, 255, 0.4), 0 0 15px rgba(0, 234, 255, 0.2);
     --shadow-neon-hover: 0 0 12px var(--color-primary), 0 0 20px rgba(0, 234, 255, 0.6);
     --shadow-danger: 0 0 8px rgba(255, 65, 54, 0.6);
-
+    
     /* Colores para la visualización binaria (ajustados al tema oscuro) */
     --color-network-bit: var(--color-primary); 
     --color-host-bit: #777777; /* Gris más oscuro para bits de host inactivos */
@@ -135,7 +135,6 @@ h1 {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
-
 
 /* ======================================= */
 /* 2. CARD Y SECCIONES */
@@ -465,12 +464,11 @@ input[type="text"]:focus, input[type="number"]:focus {
 }
 
 .hosts-usable-value, .hosts-required-value {
-     color: var(--color-secondary);
-     font-weight: 700;
-     padding: 0 5px;
-     border-radius: 2px;
+    color: var(--color-secondary);
+    font-weight: 700;
+    padding: 0 5px;
+    border-radius: 2px;
 }
-
 
 /* ======================================= */
 /* 5. ESTILOS PASO A PASO Y BINARIO */
@@ -572,13 +570,14 @@ input[type="text"]:focus, input[type="number"]:focus {
     border-radius: 4px;
     margin-top: 15px;
     font-family: var(--font-mono);
-    overflow-x: auto;
+    overflow-x: auto; /* Permite desplazamiento horizontal en pantalla */
 }
 
 .step-binary-row {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    flex-wrap: nowrap; /* Evita el salto de línea en pantalla */
 }
 
 .binary-label {
@@ -592,7 +591,7 @@ input[type="text"]:focus, input[type="number"]:focus {
 .binary-representation {
     display: flex;
     gap: 5px; /* Separación entre octetos */
-    white-space: nowrap;
+    white-space: nowrap; /* Mantiene la línea en una sola fila en pantalla */
 }
 
 .octet-group {
@@ -640,8 +639,9 @@ input[type="text"]:focus, input[type="number"]:focus {
 }
 
 /* ======================================= */
-/* 6. ESTILOS DE IMPRESIÓN (NUEVO) */
+/* 6. ESTILOS DE IMPRESIÓN (NUEVO Y MEJORADO) */
 /* ======================================= */
+
 @media print {
     body {
         background: #fff;
@@ -649,7 +649,10 @@ input[type="text"]:focus, input[type="number"]:focus {
         padding: 0;
         margin: 0;
         min-height: auto;
+        font-family: Arial, sans-serif; /* Fuente legible para impresión */
+        font-size: 10pt;
     }
+
     .container {
         /* Anular grid para impresión */
         display: block; 
@@ -657,14 +660,16 @@ input[type="text"]:focus, input[type="number"]:focus {
         margin: 0;
         padding: 0 10mm;
     }
+
     /* Ocultar elementos de UI y control */
     header, .utility-sidebar, .action-buttons, .input-group button, 
     .print-report-name-group, .accordion-icon, .sidebar-text,
-    .btn, .vlsm-input-group button, .external-link-btn {
+    .btn, .vlsm-input-group button, .external-link-btn,
+    .app-header {
         display: none !important; 
     }
 
-    /* Mostrar encabezado de impresión (creado por JS) */
+    /* Mostrar encabezado de impresión (si lo genera JS) */
     .print-header {
         display: block !important;
         text-align: center;
@@ -672,6 +677,7 @@ input[type="text"]:focus, input[type="number"]:focus {
         padding: 10px;
         border-bottom: 2px solid #000;
         color: #000;
+        font-weight: 700;
     }
 
     /* Estilos generales de tarjeta/sección */
@@ -684,12 +690,13 @@ input[type="text"]:focus, input[type="number"]:focus {
         color: #000 !important;
         page-break-inside: avoid;
     }
-    
+
     /* Asegurar que las secciones de paso a paso no se corten */
-    .step-card, .accordion-header {
+    .step-card {
         page-break-inside: avoid;
         background-color: #f8f8f8 !important; /* Fondo claro para pasos */
         border-color: #ccc !important;
+        border-left: 6px solid #00aaff !important; /* Color simple para el borde */
     }
 
     /* Mostrar el contenido del acordeón por defecto en impresión */
@@ -698,9 +705,84 @@ input[type="text"]:focus, input[type="number"]:focus {
         max-height: none !important;
         opacity: 1 !important;
         visibility: visible !important;
-        padding: 0;
+        padding: 10px 0 0 0 !important; /* Reducir padding */
+        transform: translateY(0) !important;
     }
     
+    /* [INICIO DE MODIFICACIONES CLAVE PARA BINARIOS] */
+    
+    /* Contenedor Binario: Asegurar que todo el contenido sea visible y no se corte */
+    .step-binary {
+        overflow-x: visible !important; /* CRÍTICO: Evita el corte horizontal */
+        width: 100% !important;
+        padding: 8px;
+        border: 1px solid #000;
+        background-color: #f0f0f0 !important;
+        font-size: 8.5pt !important; /* Fuente pequeña para maximizar el espacio */
+        font-family: 'Courier New', monospace !important; /* Asegurar fuente monoespacio para alineación */
+    }
+
+    .step-binary-row {
+        display: block !important; /* Usar bloque para forzar el flujo vertical de filas */
+        margin-bottom: 5px;
+    }
+
+    .binary-representation {
+        white-space: normal !important; /* Permitir que los octetos se envuelvan si es necesario */
+        display: inline !important; 
+        line-height: 1.2;
+    }
+
+    .octet-group {
+        display: inline-flex !important; /* Usar inline-flex o inline-block para mantener la separación de octetos */
+        border: 1px solid #ccc;
+        margin-right: 4px;
+        padding: 0 1px;
+    }
+    
+    .binary-label {
+        min-width: 85px !important;
+        text-align: left !important;
+        color: #333 !important;
+        font-weight: bold !important;
+        margin-right: 5px !important;
+        display: inline-block;
+    }
+    
+    /* Forzar al navegador a imprimir los colores de los bits */
+    .bit-one, 
+    .bit-zero, 
+    .bit-subnet, 
+    .dot-decimal-ip,
+    .binary-operation,
+    .bit-network-borrowed, 
+    .bit-host-reserved {
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important;
+        font-weight: 700 !important; /* Asegurar que el texto se vea fuerte */
+        background-color: transparent !important;
+        text-shadow: none !important;
+    }
+    
+    /* Definición de colores de impresión para los bits */
+    .bit-one {
+        color: #006400 !important; /* Verde oscuro (Red/Host Bit 1) */
+    }
+    .bit-subnet {
+        color: #00008b !important; /* Azul oscuro (Subnet Bit 1) */
+    }
+    .bit-zero {
+        color: #666666 !important; /* Gris oscuro (Bit 0) */
+    }
+    .dot-decimal-ip {
+        color: #000000 !important;
+        font-weight: 500 !important;
+    }
+    .binary-operation {
+         color: #aa00aa !important; /* Magenta oscuro */
+    }
+    /* [FIN DE MODIFICACIONES CLAVE PARA BINARIOS] */
+
     /* Ajustar la tabla de resultados */
     .results-table-container {
         overflow-x: visible;
@@ -709,6 +791,10 @@ input[type="text"]:focus, input[type="number"]:focus {
         width: 100%;
         border-collapse: collapse;
         font-size: 0.8em;
+    }
+    .results-table th, .results-table td {
+        border: 1px solid #eee;
+        padding: 5px;
     }
     .results-table thead th {
         color: #000;
@@ -720,26 +806,13 @@ input[type="text"]:focus, input[type="number"]:focus {
     }
     .results-table td {
         color: #333 !important;
-        border: 1px solid #eee;
-        padding: 5px;
     }
-
-    /* Resetear los colores binarios a blanco/negro para impresión */
-    .bit-one, .bit-zero, .bit-subnet, .bit-network-borrowed, .bit-host-reserved {
-        color: #000 !important;
-        background-color: transparent !important;
-        text-shadow: none !important;
-    }
-    .octet-group {
-        border: 1px solid #ccc;
-    }
-
 }
-
 
 /* ======================================= */
 /* 7. MEDIA QUERIES (RESPONSIVIDAD AVANZADA) */
 /* ======================================= */
+
 /* Dispositivos Medianos (Tablet y escritorios pequeños) */
 @media (max-width: 1200px) {
     .container {
