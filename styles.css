@@ -1,0 +1,793 @@
+/* ======================================= */
+/* 1. VARIABLES Y ESTILOS BASE (CYBER-DARK) */
+/* ======================================= */
+:root {
+    /* Colores base: Oscuro y Tecnológico */
+    --color-bg-dark: #121212; /* Fondo muy oscuro, casi negro */
+    --color-bg-card: #1e1e1e; /* Tarjeta oscura para contraste */
+    
+    /* Colores Neón/Eléctricos */
+    --color-primary: #00eaff; /* Cyan Eléctrico (Principal) */
+    --color-secondary: #00ff7f; /* Verde Neón (Éxito/Acciones) */
+    --color-accent: #ff00ff; /* Magenta Brillante (Énfasis/Alerta) */
+    
+    /* Texto y Bordes */
+    --color-text: #e0e0e0; /* Gris claro para texto */
+    --color-text-light: #90caf9; /* Texto de utilidad */
+    --color-border: #333333; /* Borde oscuro sutil */
+    
+    /* Variables de Estado */
+    --color-success: var(--color-secondary);
+    --color-danger: #ff4136; /* Rojo de error */
+    
+    /* Tipografía y Sombras */
+    --font-sans: 'Poppins', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+    --shadow-neon-light: 0 0 8px rgba(0, 234, 255, 0.4), 0 0 15px rgba(0, 234, 255, 0.2);
+    --shadow-neon-hover: 0 0 12px var(--color-primary), 0 0 20px rgba(0, 234, 255, 0.6);
+    --shadow-danger: 0 0 8px rgba(255, 65, 54, 0.6);
+
+    /* Colores para la visualización binaria (ajustados al tema oscuro) */
+    --color-network-bit: var(--color-primary); 
+    --color-host-bit: #777777; /* Gris más oscuro para bits de host inactivos */
+    --color-subnet-bit: var(--color-accent); 
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1500px; /* Un poco más amplio para el look tecnológico */
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 1fr 320px; /* Contenido principal y barra lateral */
+    gap: 40px; /* Mayor separación */
+    padding: 0 30px;
+}
+
+.app-header {
+    grid-column: 1 / -1;
+    margin-bottom: 30px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.app-header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 5px;
+}
+
+h1 {
+    font-size: 3em;
+    color: var(--color-primary);
+    margin: 0;
+    font-weight: 700;
+    text-shadow: 0 0 5px var(--color-primary); /* Efecto neón suave */
+}
+
+.subtitle {
+    color: var(--color-text-light);
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 400;
+    font-family: var(--font-mono);
+}
+
+/* Estilo del botón de enlace externo CIBERNÉTICO */
+.external-link-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 15px;
+    background-color: transparent;
+    border: 2px solid var(--color-accent); /* Borde magenta */
+    color: var(--color-accent);
+    border-radius: 8px; 
+    transition: all 0.2s ease-out;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5); /* Resplandor */
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.external-link-btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg-dark); /* Texto oscuro al pasar el mouse */
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--color-accent); 
+}
+
+.icon-link {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* Título para el botón de enlace */
+.link-btn-title {
+    display: none; /* Oculto por defecto, visible en el botón rediseñado */
+}
+
+/* Hacemos el título visible */
+.external-link-btn .link-btn-title {
+    display: inline-block;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+
+/* ======================================= */
+/* 2. CARD Y SECCIONES */
+/* ======================================= */
+
+.main-app-content {
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.utility-sidebar {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.card {
+    background-color: var(--color-bg-card);
+    border-radius: 4px; /* Bordes afilados */
+    padding: 30px;
+    box-shadow: var(--shadow-neon-light); /* Sombra de neón */
+    border: 1px solid var(--color-border);
+    transition: all 0.3s;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-neon-hover);
+}
+
+.section-title {
+    font-size: 1.8em;
+    color: var(--color-secondary);
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    text-shadow: 0 0 3px rgba(0, 255, 127, 0.5);
+}
+
+.group-title {
+    font-size: 1.3em;
+    color: var(--color-text-light);
+    margin: 25px 0 15px 0;
+    border-left: 4px solid var(--color-accent);
+    padding-left: 15px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+/* ======================================= */
+/* 3. FORMULARIOS Y BOTONES */
+/* ======================================= */
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: var(--color-text-light);
+    font-family: var(--font-mono);
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+    font-size: 1.1em;
+    background-color: #2a2a2a; /* Fondo más oscuro */
+    color: var(--color-primary); /* Texto de input neón */
+    caret-color: var(--color-primary); /* Cursor neón */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 5px rgba(0, 234, 255, 0.5);
+    outline: none;
+}
+
+/* Estilos de Radio Buttons (Moderno/Neón) */
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-label {
+    padding: 10px 20px;
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.radio-group input[type="radio"]:checked + .radio-label {
+    background-color: var(--color-primary);
+    color: var(--color-bg-dark); /* Texto oscuro en el check */
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-neon-light);
+}
+
+/* Controles CLSM/VLSM */
+.clsm-controls, .vlsm-controls {
+    margin-top: 20px;
+}
+
+/* VLSM Host Input List */
+.host-requirements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.vlsm-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.vlsm-input-group .vlsm-host-input {
+    flex-grow: 1;
+}
+
+.remove-host-btn {
+    width: 50px;
+    min-width: 50px;
+    background-color: var(--color-danger);
+    color: white;
+    font-size: 1.5em;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.remove-host-btn:hover {
+    background-color: #ff6055;
+    box-shadow: var(--shadow-danger);
+}
+
+/* Botones de Acción */
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+/* Estilo de Botón Cibernético (Flat con Glow) */
+.btn {
+    padding: 14px 22px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: all 0.2s ease-out;
+    flex-grow: 1;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    box-shadow: none; 
+    position: static; 
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-bg-dark);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
+    border: 1px solid var(--color-secondary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-secondary);
+    box-shadow: 0 0 15px rgba(0, 255, 127, 0.8);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: white;
+    border: 1px solid var(--color-danger);
+}
+
+.btn-danger:hover {
+    background-color: var(--color-danger);
+    box-shadow: 0 0 15px rgba(255, 65, 54, 0.8);
+    transform: translateY(-2px);
+}
+
+/* NUEVO: Botón de Imprimir */
+.btn-accent {
+    background-color: var(--color-accent);
+    color: var(--color-bg-dark);
+    border: 1px solid var(--color-accent);
+}
+
+.btn-accent:hover {
+    background-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+.btn-full-width {
+    flex-grow: initial;
+    width: 100%;
+}
+
+.btn-small {
+    font-size: 0.9em;
+    padding: 8px 15px;
+    width: auto;
+    flex-grow: 0;
+}
+
+.error-message {
+    color: var(--color-danger);
+    font-weight: 600;
+    margin-top: 10px;
+    font-size: 0.9em;
+    font-family: var(--font-mono);
+}
+
+/* Ocultar el input del nombre del reporte y el botón hasta que se calcule */
+.print-report-name-group {
+    display: none; /* Controlado por JS después del cálculo */
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+}
+
+.print-report-button {
+    margin-top: 15px;
+}
+
+/* ======================================= */
+/* 4. RESULTADOS Y TABLAS */
+/* ======================================= */
+
+.output-content {
+    margin-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 1em;
+    color: var(--color-text);
+}
+
+.exponent-result {
+    color: var(--color-primary);
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.results-table-container {
+    overflow-x: auto; /* Permite desplazamiento en móvil */
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.results-table th, .results-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.results-table thead th {
+    background-color: #2c2c2c;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    position: sticky; 
+    top: 0;
+    text-shadow: none;
+}
+
+.results-table tr:nth-child(even) {
+    background-color: #212121;
+}
+
+.results-table tr:nth-child(odd) {
+    background-color: var(--color-bg-card);
+}
+
+.results-table td {
+    color: var(--color-text);
+}
+
+/* Resaltar datos importantes */
+.results-table td:nth-child(2), /* Máscara */
+.results-table td:nth-child(3), /* ID de Red */
+.results-table td:nth-child(7) { /* Hosts Usables */
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+.hosts-usable-value, .hosts-required-value {
+     color: var(--color-secondary);
+     font-weight: 700;
+     padding: 0 5px;
+     border-radius: 2px;
+}
+
+
+/* ======================================= */
+/* 5. ESTILOS PASO A PASO Y BINARIO */
+/* ======================================= */
+
+.step-by-step-section {
+    margin-top: 30px;
+}
+
+.step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.step-card {
+    border: 1px solid var(--color-accent); /* Borde magenta de paso */
+    border-left: 6px solid var(--color-accent);
+    border-radius: 4px;
+    padding: 25px;
+    background-color: #251a25; /* Fondo oscuro de acento */
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.2);
+    overflow: hidden;
+}
+
+/* Estilos de Acordeón */
+.accordion-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    margin: -10px; /* Ajustar padding para click */
+    padding: 10px;
+}
+
+.step-number {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-right: 15px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.step-title {
+    font-size: 1.4em;
+    color: var(--color-text-light);
+    margin: 0;
+    font-weight: 600;
+    flex-grow: 1;
+}
+
+.accordion-icon {
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+    color: var(--color-secondary);
+}
+
+.accordion-icon.open {
+    transform: rotate(90deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, padding 0.5s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0 1rem;
+    padding-top: 0;
+    transform: translateY(10px); 
+}
+
+.accordion-content.open {
+    max-height: 5000px; /* Suficiente para que se despliegue */
+    opacity: 1;
+    visibility: visible;
+    padding: 1rem;
+    padding-top: 15px;
+    transform: translateY(0);
+}
+
+/* Detalle de Paso */
+.step-details {
+    color: var(--color-secondary);
+    font-family: var(--font-mono);
+    margin-top: 15px;
+    font-style: italic;
+    border-top: 1px dashed var(--color-border);
+    padding-top: 10px;
+}
+
+/* Representación Binaria */
+.step-binary {
+    background-color: #1a1a1a;
+    border: 1px solid var(--color-border);
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-family: var(--font-mono);
+    overflow-x: auto;
+}
+
+.step-binary-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.binary-label {
+    min-width: 100px;
+    font-weight: 600;
+    color: var(--color-text-light);
+    text-align: right;
+    margin-right: 10px;
+}
+
+.binary-representation {
+    display: flex;
+    gap: 5px; /* Separación entre octetos */
+    white-space: nowrap;
+}
+
+.octet-group {
+    display: flex;
+    border: 1px solid #444;
+    border-radius: 2px;
+    padding: 2px;
+}
+
+/* Estilos para los bits */
+.bit-one {
+    color: #fff;
+    font-weight: 700;
+    background-color: var(--color-network-bit); /* Azul/Cyan para bits a 1 */
+    text-shadow: 0 0 2px var(--color-network-bit);
+    padding: 0 2px;
+    border-radius: 1px;
+}
+
+.bit-zero {
+    color: #555; /* Gris oscuro para bits a 0 */
+    font-weight: 400;
+    padding: 0 2px;
+}
+
+.bit-subnet {
+    color: #fff;
+    font-weight: 700;
+    background-color: var(--color-subnet-bit); /* Magenta para bits de subred */
+    text-shadow: 0 0 2px var(--color-subnet-bit);
+    padding: 0 2px;
+    border-radius: 1px;
+}
+
+.binary-operation {
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin-right: 10px;
+}
+
+.dot-decimal-ip {
+    margin-left: 20px;
+    color: var(--color-primary);
+    font-weight: 400;
+}
+
+/* ======================================= */
+/* 6. ESTILOS DE IMPRESIÓN (NUEVO) */
+/* ======================================= */
+@media print {
+    body {
+        background: #fff;
+        color: #000;
+        padding: 0;
+        margin: 0;
+        min-height: auto;
+    }
+    .container {
+        /* Anular grid para impresión */
+        display: block; 
+        max-width: 100%;
+        margin: 0;
+        padding: 0 10mm;
+    }
+    /* Ocultar elementos de UI y control */
+    header, .utility-sidebar, .action-buttons, .input-group button, 
+    .print-report-name-group, .accordion-icon, .sidebar-text,
+    .btn, .vlsm-input-group button, .external-link-btn {
+        display: none !important; 
+    }
+
+    /* Mostrar encabezado de impresión (creado por JS) */
+    .print-header {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 2px solid #000;
+        color: #000;
+    }
+
+    /* Estilos generales de tarjeta/sección */
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+        padding: 15px;
+        background: #fff !important;
+        color: #000 !important;
+        page-break-inside: avoid;
+    }
+    
+    /* Asegurar que las secciones de paso a paso no se corten */
+    .step-card, .accordion-header {
+        page-break-inside: avoid;
+        background-color: #f8f8f8 !important; /* Fondo claro para pasos */
+        border-color: #ccc !important;
+    }
+
+    /* Mostrar el contenido del acordeón por defecto en impresión */
+    .accordion-content {
+        display: block !important;
+        max-height: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        padding: 0;
+    }
+    
+    /* Ajustar la tabla de resultados */
+    .results-table-container {
+        overflow-x: visible;
+    }
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8em;
+    }
+    .results-table thead th {
+        color: #000;
+        background-color: #e9ecef;
+        border-bottom: 1px solid #000;
+    }
+    .results-table tbody tr {
+        background-color: #fff !important;
+    }
+    .results-table td {
+        color: #333 !important;
+        border: 1px solid #eee;
+        padding: 5px;
+    }
+
+    /* Resetear los colores binarios a blanco/negro para impresión */
+    .bit-one, .bit-zero, .bit-subnet, .bit-network-borrowed, .bit-host-reserved {
+        color: #000 !important;
+        background-color: transparent !important;
+        text-shadow: none !important;
+    }
+    .octet-group {
+        border: 1px solid #ccc;
+    }
+
+}
+
+
+/* ======================================= */
+/* 7. MEDIA QUERIES (RESPONSIVIDAD AVANZADA) */
+/* ======================================= */
+/* Dispositivos Medianos (Tablet y escritorios pequeños) */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr; /* Una sola columna */
+        padding: 0 20px;
+        gap: 30px;
+        margin: 30px auto;
+    }
+    .main-app-content, .utility-sidebar, .app-header {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+    .utility-sidebar {
+        /* Mover la barra lateral al principio en dispositivos pequeños */
+        order: -1; 
+    }
+    .app-header-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Dispositivos Pequeños (Móviles) */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 15px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .external-link-btn {
+        width: 100%;
+    }
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .results-table {
+        font-size: 0.75em;
+    }
+    .results-table th, .results-table td {
+        padding: 10px 8px;
+    }
+    .radio-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .radio-label {
+        text-align: center;
+    }
+  }
